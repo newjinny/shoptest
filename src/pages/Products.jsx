@@ -24,7 +24,7 @@ const Products = () => {
 
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  //id가 일치하는 하나의 상품
+
   const getProductList = async () => {
     let url = `https://my-json-server.typicode.com/newjinny/shoptest/products/${id}`;
     let response = await fetch(url);
