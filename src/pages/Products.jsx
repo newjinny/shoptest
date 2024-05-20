@@ -26,12 +26,12 @@ const Products = () => {
   let dispatch = useDispatch();
   //id가 일치하는 하나의 상품
   const getProductList = async () => {
-    let url = `http://localhost:4000/products/${id}`;
+    let url = `https://my-json-server.typicode.com/newjinny/shoptest/products/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProducts(data);
 
-    let url2 = `http://localhost:4000/products?category=${data.category}`;
+    let url2 = `https://my-json-server.typicode.com/newjinny/shoptest/products?category=${data.category}`;
     let response2 = await fetch(url2);
     let data2 = await response2.json();
 
