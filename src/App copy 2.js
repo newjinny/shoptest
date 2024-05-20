@@ -13,15 +13,43 @@ import ShopAll from "./pages/ShopAll";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 
+import { useCallback, useState } from "react";
+
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  //useCallback(()=>{},[])
+
+  const getProductList = useCallback(async (category) => {
+    //api를 호출하는 함수
+    let url = `http://localhost:4000/products`;
+    if (category) {
+      url += `?category=${category}`;
+    }
+    let response = await fetch(url);
+    let data = await response.json();
+    setProducts(data);
+  }, []);
+
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/shopall" element={<ShopAll />} />
+        <Route
+          path="/"
+          element={<Main products={products} getProductList={getProductList} />}
+        />
+        <Route
+          path="/shopall"
+          element={
+            <ShopAll
+              products={products}
+              setProducts={setProducts}
+              getProductList={getProductList}
+            />
+          }
+        />
         <Route path="/products/:id" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
 
